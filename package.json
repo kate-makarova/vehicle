@@ -1,0 +1,17 @@
+{
+  "name": "vehicles-parser",
+  "version": "1.0.0",
+  "description": "A service for parsing vehicle XML API.",
+  "author": "Kate Makarova <kate.makarova@hotmail.com>",
+  "license": "MIT",
+  "main": "app.js",
+  "keywords": [
+    "nodejs",
+    "express"
+  ],
+  "dependencies": {
+    "axios": "^0.21.0",
+    "express": "*",
+    "xml2js": "^0.4.23"
+  }
+}
