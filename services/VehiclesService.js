@@ -1,6 +1,14 @@
+const { ApolloServer } = require('apollo-server');
+const typeDefs = require('./../models/schema');
+
+
 class VehiclesService {
 
-    parseVehicles() {
+    parse() {
+
+    }
+
+    save() {
 
     }
 }

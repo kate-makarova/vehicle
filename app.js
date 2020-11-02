@@ -1,6 +1,8 @@
 const express = require('express');
 const LoadService = require('./services/LoadService');
-const xml2js = require('xml2js');
+const { ApolloServer } = require('apollo-server');
+const typeDefs = require('./models/schema');
+const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
 const router = express.Router();
@@ -44,5 +46,28 @@ app.use(express.static('/'));
 app.use('/', router);
 
 app.listen(port, function () {
-    console.log('Example app listening on port 8080!')
+    console.log('App is listening on port 8080.')
+    console.log('To get all the data currently stored in the database, go to http://localhost:8000/all.')
+    console.log('To upload data into the database, go to http://localhost:8000/upload.')
 })
+
+const url = 'mongodb://localhost:27017';
+const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(function (err) {
+    console.log("MONGOdb connected");
+    db = client.db("vehicles"); //mongodb database name
+});
+
+const resolvers = {
+    Query: {
+        makes: async () => {
+            values = await db.collection('makes').find().toArray().then(res => { return res });
+            return values
+        }
+    }
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+server.listen().then(({ url }) => {
+    console.log(`🚀 Server ready to accept GraphQL requests at ${url}.`);
+});

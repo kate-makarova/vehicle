@@ -25,7 +25,6 @@ module.exports = class LoadService {
             }
 
             var splitIndex = chunk.lastIndexOf('</AllVehicleMakes>') + lastTagLength;
-            console.log('');
             var part = '<Result>'+nextPart + chunk.substr(0, splitIndex)+'</Result>';
             nextPart = chunk.substr(splitIndex);
 

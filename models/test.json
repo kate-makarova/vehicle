@@ -1,0 +1,14 @@
+{
+  "makeId": 1,
+  "makeName": "Name",
+  "vehicleTypes": [
+    {
+      "typeID": 1,
+      "typeName": "Type 1"
+    },
+    {
+      "typeID": 2,
+      "typeName": "Type 2"
+    }
+  ]
+}

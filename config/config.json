@@ -1,0 +1,7 @@
+{
+  "production": {
+    "database": "",
+    "worker_number": 10,
+    "tmp_file": "./tmp/tmp.xml"
+  }
+}
