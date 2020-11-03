@@ -33,6 +33,7 @@ module.exports = class VehicleService {
             global.total = 0;
 
         const worker = new Worker('./worker.js', {workerData: {part: part}});
+        console.log('Worker has started...')
         global.activeWorkers += 1;
 
         worker.on('message', (result) => {
@@ -97,7 +98,7 @@ module.exports = class VehicleService {
 
         var types = [];
 
-        if(typesData.Response.Results.length) {
+        if(typesData && typesData.Response.Results.length && typesData.Response.Results[0].VehicleTypesForMakeIds) {
             for (var j = 0; j < typesData.Response.Results[0].VehicleTypesForMakeIds.length; j++) {
                 types.push({
                     typeId: parseInt(typesData.Response.Results[0].VehicleTypesForMakeIds[j].VehicleTypeId[0]),

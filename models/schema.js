@@ -9,14 +9,13 @@ const typeDefs = gql`
    type Make {
        makeId: Int!
        makeName: String!
-       vehicleTypes: [VehicleType]
+       types: [VehicleType]
    }
 
     type Query {
-        makes: [Make]
-        make(id: Int!): Make
-        types: [VehicleType]
-        type(id: Int!): VehicleType
+        make_all: [Make]
+        make_id(id: Int!): Make
+        make_name(name: String!): Make
     }
 `;
 

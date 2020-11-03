@@ -7,9 +7,7 @@ module.exports = class FileService {
     /**
      * Split the XML into parsable chunks and execute a callback function on each chunk.
      *
-     * @param chunkSize
      * @param processCallback
-     * @param finishCallback
      */
     loadFileChunk(processCallback) {
         var nextPart = '';
@@ -29,8 +27,7 @@ module.exports = class FileService {
                 processCallback(parts.part);
             }
 
-        }).on('end', function() {
-        });
+        })
     }
 
     /**
@@ -67,6 +64,7 @@ module.exports = class FileService {
     async loadUrlToFile(url) {
         // Here I do not expect multiple copies of the same process run in parallel,
         // so we only need one temporary file.
+        fs.truncate(config.tmp_file, 0, () => {});
         request(url).pipe(fs.createWriteStream(config.tmp_file));
     }
 }

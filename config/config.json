@@ -1,7 +1,7 @@
 {
   "database_url": "mongodb://localhost:27017/",
   "database_name": "vehicles",
-  "worker_number": 10,
+  "worker_number": 30,
   "tmp_file": "./tmp/tmp.xml",
   "full_list_url": "",
   "type_list_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetVehicleTypesForMakeId"
