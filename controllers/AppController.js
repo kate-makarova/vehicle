@@ -27,7 +27,7 @@ module.exports = class AppController {
 
             // This callback is also called from the scheduler, when there is no request or response objects.
             if(res) {
-                res.send('Uploading. The process may take approximately 5 minutes. Follow the progress in console.');
+                res.send('Uploading. The process may take approximately 10 minutes. Follow the progress in console.');
             }
         } catch(e) {
             if(res) {

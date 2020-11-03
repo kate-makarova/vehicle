@@ -1,5 +1,5 @@
 {
-  "worker_number": 100,
+  "worker_number": 50,
   "tmp_file": "./tmp/tmp.xml",
   "full_list_url": "https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=XML",
   "type_list_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetVehicleTypesForMakeId"

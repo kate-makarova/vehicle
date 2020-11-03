@@ -16,7 +16,9 @@ docker-compose up -d
 3. Open the /all page to check the data.
 4. Go to Apollo to check the queries.
 5. Schedule an update task with a short time interval.
-For example, to update data every minute, go to /schedule/minute/1.
+For example, to update data every 5 minutes, go to /schedule/minute/5.  
+Warning! With very small time intervals and high number of threads you risk to overwhelm the system,
+because the new threads will start before the previous batch has finished.
 6. Check via the console that the update task is running.
 7. Stop the server to kill the update tasks.
 
