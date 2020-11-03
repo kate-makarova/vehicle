@@ -6,6 +6,7 @@ module.exports = class FileService {
 
     /**
      * Split the XML into parsable chunks and execute a callback function on each chunk.
+     * The number of chunks os equal to the number of worker threads defined in config/config.json.
      *
      * @param processCallback
      */
@@ -56,7 +57,7 @@ module.exports = class FileService {
     }
 
     /**
-     * Downloads all the data into a temporary file.
+     * Download all the data into a temporary file.
      *
      * @param url
      * @returns {Promise<void>}

@@ -2,15 +2,15 @@ const express = require('express');
 const FileService = require('./services/FileService');
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./models/schema');
-const MongoClient = require('mongodb').MongoClient;
 const VehicleService = require('./services/VehicleService');
 const MongoService = require('./services/MongoService');
+const config = require('./config/config.json');
 
 const app = express();
 const router = express.Router();
 const mongoService = new MongoService();
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 router.use(function (req,res,next) {
     console.log('/' + req.method);
@@ -35,7 +35,7 @@ router.get('/upload', async function(req,res){
     try {
         var fileService = new FileService();
 
-        await fileService.loadUrlToFile('https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=XML');
+        await fileService.loadUrlToFile(config.full_list_url);
         fileService.loadFileChunk(VehicleService.prototype.callWorker);
         res.json({status: 'uploading'});
     } catch(e) {
