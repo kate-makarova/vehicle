@@ -1,6 +1,7 @@
 const fs = require('fs');
 const request = require('request');
 const config = require('./../config/config.json');
+const axios = require('axios');
 
 module.exports = class FileService {
 
@@ -11,6 +12,7 @@ module.exports = class FileService {
      * @param processCallback
      */
     loadFileChunk(processCallback) {
+        console.log('1')
         var nextPart = '';
         var formCorrectChunk = this.formCorrectChunk;
 
@@ -18,9 +20,12 @@ module.exports = class FileService {
         var fileSizeInBytes = stats["size"];
         var highWaterMark = Math.round(fileSizeInBytes / config.worker_number);
 
+        console.log(stats);
+
         var readStream = fs.createReadStream(config.tmp_file,{ highWaterMark: highWaterMark, encoding: 'utf8' });
 
         readStream.on('data', function(chunk) {
+            console.log('2')
             var parts = formCorrectChunk(chunk, nextPart);
             nextPart = parts.nextPart;
 
@@ -66,6 +71,28 @@ module.exports = class FileService {
         // Here I do not expect multiple copies of the same process run in parallel,
         // so we only need one temporary file.
         fs.truncate(config.tmp_file, 0, () => {});
-        request(url).pipe(fs.createWriteStream(config.tmp_file));
+
+        const writer = fs.createWriteStream(config.tmp_file);
+
+        return axios({
+            method: 'get',
+            url: url,
+            responseType: 'stream',
+        }).then(response => {
+            return new Promise((resolve, reject) => {
+                response.data.pipe(writer);
+                let error = null;
+                writer.on('error', err => {
+                    error = err;
+                    writer.close();
+                    reject(err);
+                });
+                writer.on('close', () => {
+                    if (!error) {
+                        resolve(true);
+                    }
+                });
+            });
+        });
     }
 }

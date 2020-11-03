@@ -24,6 +24,7 @@ module.exports = class VehicleService {
      */
     callWorker(part) {
 
+        console.log('calling');
         // There are more elegant ways to store data, for example, storing it in file, or database,
         // or a SharedBuffer, but for the only purpose of logging the results on the console,
         // this should be enough.
