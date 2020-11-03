@@ -1,8 +1,9 @@
 const express = require('express');
-const LoadService = require('./services/LoadService');
+const FileService = require('./services/FileService');
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./models/schema');
 const MongoClient = require('mongodb').MongoClient;
+const VehicleService = require('./services/VehicleService');
 
 const app = express();
 const router = express.Router();
@@ -15,40 +16,43 @@ router.use(function (req,res,next) {
 });
 
 router.get('/', async function(req,res){
+    console.log('-1');
     try {
         var loadService = new LoadService();
-      //  var xml = await importService.loadURL('https://vpic.nhtsa.dot.gov/api/vehicles/GetVehicleTypesForMakeId/440?format=xml');
-      // var xml = await importService.loadUrlChunk('https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=XML', 0, 500000);
-      // console.log(xml);
-      // res.html(xml);
+
         // Since this file potentially can be quite large, we need a way to process it in chunks.
         // The easiest way is to first download it locally and then parse it.
       //  await loadService.loadUrlToFile('https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=XML');
-        loadService.loadFileChunk(0);
+      //  loadService.loadFileChunk(0, VehicleService.prototype.callWorker, MongoService.prototype.saveAll);
         res.json({status: 'ready'});
 
-        // var parser = xml2js.Parser();
-        // var text = await new Promise((resolve, reject) => parser.parseString(xml, (err, data) => {
-        //     if (err) reject(err);
-        //     resolve(data);
-        // }));
-       // res.json(text);
+
     } catch(e) {
         res.json({status: 'error'});
     }
 });
 
-router.get('/sharks', function(req,res){
-    res.json({b: 2});
+router.get('/upload', async function(req,res){
+    try {
+        var fileService = new FileService();
+
+       // await fileService.loadUrlToFile('https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=XML');
+        fileService.loadFileChunk(VehicleService.prototype.callWorker);
+
+         res.json({"Status": "uploading"});
+    } catch(e) {
+        res.json({status: 'error'});
+    }
 });
+
 
 app.use(express.static('/'));
 app.use('/', router);
 
 app.listen(port, function () {
     console.log('App is listening on port 8080.')
-    console.log('To get all the data currently stored in the database, go to http://localhost:8000/all.')
-    console.log('To upload data into the database, go to http://localhost:8000/upload.')
+    console.log('To get all the data currently stored in the database, go to http://localhost:8080/all.')
+    console.log('To upload data into the database, go to http://localhost:8080/upload.')
 })
 
 const url = 'mongodb://localhost:27017';
