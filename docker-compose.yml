@@ -15,7 +15,9 @@ services:
       - app-network
 
   nodejs:
-    dockerfile: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: nodejs
     container_name: vehicles_test_task_nodejs
     restart: unless-stopped
@@ -23,13 +25,13 @@ services:
     environment:
       - MONGO_USERNAME=$MONGO_USERNAME
       - MONGO_PASSWORD=$MONGO_PASSWORD
-      - MONGO_HOSTNAME=db
+      - MONGO_HOSTNAME=vehicles_test_task_mongo
       - MONGO_PORT=$MONGO_PORT
       - MONGO_DB=$MONGO_DB
     depends_on:
-      database
+      - database
     ports:
-      - "80:8080"
+      - "8080:8080"
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
