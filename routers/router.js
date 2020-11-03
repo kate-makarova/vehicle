@@ -10,6 +10,7 @@ router.use(function (req,res,next) {
 
 router.get('/', AppController.prototype.index);
 router.get('/all', AppController.prototype.all)
-router.get('/upload', AppController.prototype.upload);
+router.get('/schedule/:timeUnit/:number', AppController.prototype.schedule);
+router.get('/download', AppController.prototype.download);
 
 module.exports = router;

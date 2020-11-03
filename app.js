@@ -12,8 +12,10 @@ app.use('/', router);
 
 app.listen(port, function () {
     console.log('App is listening on port 8080.')
-    console.log('To get all the data currently stored in the database, go to http://localhost:8080/all.')
-    console.log('To upload data into the database, go to http://localhost:8080/upload.')
+    console.log('To get all the data currently stored in the database go to http://localhost:8080/all.')
+    console.log('To upload data into the database go to http://localhost:8080/download.')
+    console.log('To schedule an update go to http://localhost:8080/schedule/timeUnit/timeNumber where timeUnit is ' +
+        'in ["minute", "hour", "day"] and timeNumber is any positive number.')
 })
 
 const server = new ApolloServer({typeDefs, resolvers});

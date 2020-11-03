@@ -4,7 +4,13 @@
 </header>
 <body>
 <p>To get all the data currently stored in the database, go to <a href="http://localhost:8080/all">http://localhost:8080/all</a>.</p>
-<p>To upload data into the database, go to <a href="http://localhost:8080/upload">http://localhost:8080/upload</a>.</p>
+<p>To upload data into the database, go to <a href="http://localhost:8080/download">http://localhost:8080/download</a>.</p>
 <p>To use Apollo GraphQL user interface go to <a href="http://localhost:4000">http://localhost:4000</a>.</p>
+<p>To schedule update tasks for the future:
+    <ul>
+    <li>choose how often you need to update the data; you can set an interval in minutes, hours and days</li>
+    <li>go to http://localhost:8080/schedule/timeUnit/timeNumber</li>
+</ul>
+    for example, to update the data every 5 minutes go to <a href="http://localhost:8080/schedule/minute/5">http://localhost:8080/schedule/minute/5</a>.</p>
 </body>
 </html>

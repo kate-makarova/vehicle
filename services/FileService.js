@@ -1,5 +1,4 @@
 const fs = require('fs');
-const request = require('request');
 const config = require('./../config/config.json');
 const axios = require('axios');
 
@@ -12,7 +11,6 @@ module.exports = class FileService {
      * @param processCallback
      */
     loadFileChunk(processCallback) {
-        console.log('1')
         var nextPart = '';
         var formCorrectChunk = this.formCorrectChunk;
 
@@ -20,12 +18,9 @@ module.exports = class FileService {
         var fileSizeInBytes = stats["size"];
         var highWaterMark = Math.round(fileSizeInBytes / config.worker_number);
 
-        console.log(stats);
-
         var readStream = fs.createReadStream(config.tmp_file,{ highWaterMark: highWaterMark, encoding: 'utf8' });
 
         readStream.on('data', function(chunk) {
-            console.log('2')
             var parts = formCorrectChunk(chunk, nextPart);
             nextPart = parts.nextPart;
 
